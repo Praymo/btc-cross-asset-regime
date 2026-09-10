@@ -1,0 +1,12 @@
+{
+  "as_of": "2026-08-24",
+  "start": "2016-08-25",
+  "end": "2026-08-24",
+  "rows": 3652,
+  "sources": {
+    "BTC": "Coin Metrics Community API PriceUSD, daily",
+    "ETFs": "Nasdaq historical close API",
+    "dividends": "Nasdaq dividend API for QQQ and SHY"
+  },
+  "important_caveat": "ETF total returns add cash distributions on ex-dates; prices are not vendor-adjusted closes."
+}
