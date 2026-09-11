@@ -1,6 +1,17 @@
 # BTC Cross-Asset Regime Research
 
+## 我的角色
+
+- 提出并拆解“BTC 上涨是否等于美股 risk-on”这个研究问题
+- 决定跨资产状态变量、时间切分、成本假设和留出期验证方式
+- Codex 加速实现与复算；是否接受结果、保留哪些失败证据由我判断
+
 _English summary: test BTC as a risk sensor after conditioning on equity, dollar, gold, and long-bond trends._
+
+> **TL;DR**：检验「BTC 上涨 = 美股 risk-on」这一隐含判断。加入美元、黄金、
+> 长债方向的 Regime score 在开发期与留出期夏普高于原始 BTC gate（留出期差
+> **+0.34**，正差概率 0.886），但验证期从 1.04 降至 0.63——改进依赖市场状态。
+> 结论是「值得继续验证」，不是「已证明有效」。完整限制见「哪些地方没有成功」。
 
 原始规则很简单：BTC 站上 SMA50 且 20 日动量为正，就持有 QQQ，否则持有 SHY。它隐含了一个强判断——BTC 上涨就是美股 risk-on。这份研究只检查这个判断在不同市场状态下是否站得住，并没有把一个更复杂的参数组合包装成最终策略。
 
