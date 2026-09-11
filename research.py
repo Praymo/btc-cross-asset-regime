@@ -57,9 +57,8 @@ def _fetch_nasdaq_window(
 def fetch_nasdaq_prices(session: requests.Session, ticker: str) -> pd.Series:
     # Nasdaq exposes a rolling ten-year window and rejects fully historical
     # sub-windows. Request the whole supported range and validate the first date.
-    windows = ((START, END),)
-    frames = [_fetch_nasdaq_window(session, ticker, start, end) for start, end in windows]
-    prices = pd.concat(frames, ignore_index=True).drop_duplicates("date", keep="last")
+    frame = _fetch_nasdaq_window(session, ticker, START, END)
+    prices = frame.drop_duplicates("date", keep="last")
     prices = prices.sort_values("date").set_index("date")["close"]
     prices.name = ticker
     return prices

@@ -19,6 +19,8 @@ _English summary: test BTC as a risk sensor after conditioning on equity, dollar
 
 我保留原始 `BTC gate`，再加入两个对照：QQQ 自身趋势确认，以及包含美元、黄金和长债方向的 `Regime score`。每周五（或当周最后一个交易日）锁定信号，下一交易时段才换仓；组合只在 QQQ 与 SHY 之间配置，风险仓位为 0%、50% 或 100%，报告收益按单边 5bp 扣交易成本。
 
+这里用的只有每日收盘价，所以代码把下一个交易日当成换仓日，不把前一收盘到换仓日收盘的涨跌算成策略收益。新持仓从换仓后的下一个收盘区间开始计收益。这样会保守一点，但不用假装自己知道一个并不存在的数据内成交价。
+
 时间被切成三个部分：2016—2019 是开发期，2020—2022 是验证期，2023—2026-08-24 是留出期。BTC 使用 Coin Metrics `PriceUSD`，ETF 收盘价和 QQQ/SHY 分红来自 Nasdaq；数据边界和下载入口见 [`data/README.md`](data/README.md)。
 
 ## 先看三张图
@@ -43,6 +45,8 @@ _English summary: test BTC as a risk sensor after conditioning on equity, dollar
 
 ## 重跑
 
+[![CI](https://github.com/Praymo/btc-cross-asset-regime/actions/workflows/ci.yml/badge.svg)](https://github.com/Praymo/btc-cross-asset-regime/actions/workflows/ci.yml)
+
 仓库带有与结果表对应的公共数据缓存。直接复算和重新画图：
 
 ```bash
@@ -62,6 +66,8 @@ python research.py
 jupyter nbconvert --to notebook --execute btc_cross_asset_regime_research.ipynb \
   --output /tmp/btc-regime-executed.ipynb
 ```
+
+测试运行方式：`python -m unittest discover -s tests`
 
 `outputs/full_sample_metrics.csv` 和 `outputs/metrics_by_period.csv` 保留绩效、风险暴露和换手；`outputs/holdout_sharpe_bootstrap.csv` 是图 3 的固定 seed=42 汇总。数据刷新后，源数据修订、API 限流和缺失行都可能改变结果。
 
